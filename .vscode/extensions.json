@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "johnpapa.vscode-peacock",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "editorconfig.editorconfig",
+        "ms-azuretools.vscode-docker"
+    ]
+}
