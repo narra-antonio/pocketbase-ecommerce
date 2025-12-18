@@ -116,8 +116,8 @@ migrate((app) => {
   // CREATE SUPERUSER IF NOT EXISTS
   // ===========================================
   const superusers = app.findCollectionByNameOrId("_superusers")
-  const adminEmail = process.env.POCKETBASE_ADMIN_EMAIL || "admin@ecommerce.local"
-  const adminPassword = process.env.POCKETBASE_ADMIN_PASSWORD || "Admin123!"
+  const adminEmail = process.env.PB_ADMIN_EMAIL || "admin@ecommerce.local"
+  const adminPassword = process.env.PB_ADMIN_PASSWORD || "Admin123!"
 
   try {
     app.findAuthRecordByEmail("_superusers", adminEmail)

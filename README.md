@@ -48,6 +48,12 @@ Production-ready Pocketbase v0.23 backend for Angular 21 Masterclass e-commerce 
     - [Authentication](#authentication)
     - [Common Endpoints](#common-endpoints)
     - [Realtime Subscriptions](#realtime-subscriptions)
+  - [🐳 Docker Usage](#-docker-usage)
+    - [Quick Start with Docker](#quick-start-with-docker)
+    - [Run with custom environment file](#run-with-custom-environment-file)
+    - [Run with debug mode](#run-with-debug-mode)
+    - [Available Image Tags](#available-image-tags)
+    - [Multi-architecture Support](#multi-architecture-support)
   - [🔄 Migrations](#-migrations)
     - [Migration List (28 Total)](#migration-list-28-total)
     - [Migration Order](#migration-order)
@@ -636,6 +642,62 @@ pb.collection('orders').subscribe('ORDER_ID', (e) => {
   console.log(e.record)
 })
 ```
+
+## 🐳 Docker Usage
+
+### Quick Start with Docker
+
+Pull and run the latest image:
+
+```bash
+docker pull ghcr.io/narra-antonio/pocketbase-ecommerce:latest
+
+docker run -d \
+  --name pocketbase-ecommerce \
+  -p 8090:8090 \
+  -v $(pwd)/pb_data:/pb_data \
+  -e PB_ENCRYPTION_KEY=your_32_char_key_here \
+  -e UNSPLASH_ACCESS_KEY=your_key \
+  -e UNSPLASH_SECRET_KEY=your_secret \
+  ghcr.io/narra-antonio/pocketbase-ecommerce:latest
+```
+
+### Run with custom environment file
+
+```bash
+docker run -d \
+  --name pocketbase-ecommerce \
+  -p 8090:8090 \
+  -v $(pwd)/pb_data:/pb_data \
+  --env-file .env \
+  ghcr.io/narra-antonio/pocketbase-ecommerce:latest
+```
+
+### Run with debug mode
+
+```bash
+docker run -d \
+  --name pocketbase-ecommerce \
+  -p 8090:8090 \
+  -v $(pwd)/pb_data:/pb_data \
+  -e PB_DEBUG=true \
+  --env-file .env \
+  ghcr.io/narra-antonio/pocketbase-ecommerce:latest
+```
+
+### Available Image Tags
+
+- `ghcr.io/narra-antonio/pocketbase-ecommerce:latest` - Latest stable release
+- `ghcr.io/narra-antonio/pocketbase-ecommerce:v1.0.0` - Specific version
+- `ghcr.io/narra-antonio/pocketbase-ecommerce:v1.0` - Minor version
+- `ghcr.io/narra-antonio/pocketbase-ecommerce:v1` - Major version
+
+### Multi-architecture Support
+
+Images support both:
+
+- `linux/amd64` (Intel/AMD processors)
+- `linux/arm64` (Apple Silicon, ARM servers)
 
 ## 🔄 Migrations
 
