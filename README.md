@@ -4,19 +4,56 @@ Production-ready Pocketbase v0.23 backend for Angular 21 Masterclass e-commerce 
 
 ## 📋 Table of Contents
 
-- [Features](#features)
-- [Architecture](#architecture)
-- [Quick Start](#quick-start)
-- [Environment Variables](#environment-variables)
-- [Default Users](#default-users)
-- [Database Schema](#database-schema)
-- [Development](#development)
-- [Production Deployment](#production-deployment)
-- [API Documentation](#api-documentation)
-- [Migrations](#migrations)
-- [License](#license)
-
----
+- [🛒 Pocketbase E-commerce Backend](#-pocketbase-e-commerce-backend)
+  - [📋 Table of Contents](#-table-of-contents)
+  - [✨ Features](#-features)
+  - [🏗️ Architecture](#️-architecture)
+    - [Collections (21 Total)](#collections-21-total)
+    - [Seed Data (7 Migrations)](#seed-data-7-migrations)
+  - [🚀 Quick Start](#-quick-start)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [🔧 Environment Variables](#-environment-variables)
+    - [Core Settings](#core-settings)
+    - [Encryption](#encryption)
+    - [SMTP Configuration](#smtp-configuration)
+    - [S3 Storage](#s3-storage)
+    - [Backups](#backups)
+    - [Logs](#logs)
+    - [Rate Limiting](#rate-limiting)
+    - [Trusted Proxy](#trusted-proxy)
+    - [Batch Requests](#batch-requests)
+    - [Unsplash API (Optional)](#unsplash-api-optional)
+  - [👥 Default Users](#-default-users)
+    - [1. Admin User](#1-admin-user)
+    - [2. Office User](#2-office-user)
+    - [3. Regular User](#3-regular-user)
+  - [📊 Database Schema](#-database-schema)
+    - [User Management](#user-management)
+    - [Product \& Categories](#product--categories)
+    - [Orders](#orders)
+    - [Reviews](#reviews)
+  - [💻 Development](#-development)
+    - [Local Development (without Docker)](#local-development-without-docker)
+    - [Reset Database](#reset-database)
+    - [Manual Migration Run](#manual-migration-run)
+    - [Docker Development](#docker-development)
+  - [🚀 Production Deployment](#-production-deployment)
+    - [Docker Compose Production](#docker-compose-production)
+    - [Nginx Reverse Proxy](#nginx-reverse-proxy)
+    - [Backup Strategy](#backup-strategy)
+  - [📚 API Documentation](#-api-documentation)
+    - [Auto-Generated Documentation](#auto-generated-documentation)
+    - [Base URL](#base-url)
+    - [Authentication](#authentication)
+    - [Common Endpoints](#common-endpoints)
+    - [Realtime Subscriptions](#realtime-subscriptions)
+  - [🔄 Migrations](#-migrations)
+    - [Migration List (28 Total)](#migration-list-28-total)
+    - [Migration Order](#migration-order)
+  - [📝 License](#-license)
+  - [🤝 Contributing](#-contributing)
+  - [📧 Support](#-support)
 
 ## ✨ Features
 
@@ -31,8 +68,6 @@ Production-ready Pocketbase v0.23 backend for Angular 21 Masterclass e-commerce 
 - **🚦 Rate Limiting:** Flexible rate limiting rules
 - **🎨 Product Images:** Unsplash API integration for demo images
 - **🔒 Security:** Encryption support, audit fields, login history
-
----
 
 ## 🏗️ Architecture
 
@@ -76,8 +111,6 @@ Production-ready Pocketbase v0.23 backend for Angular 21 Masterclass e-commerce 
 6. **Payment Methods** - Extended payment method configurations
 7. **Orders** - 5 sample orders with status history and reviews
 
----
-
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -89,34 +122,34 @@ Production-ready Pocketbase v0.23 backend for Angular 21 Masterclass e-commerce 
 
 1. **Clone the repository:**
 
-  ```bash
-    git clone <repository-url>
-    cd pocketbase-ecommerce
-  ```
+   ```bash
+   git clone <repository-url>
+   cd pocketbase-ecommerce
+   ```
 
 2. **Configure environment:**
 
-  ```bash
-    cp .env.example .env
-  ```
+   ```bash
+   cp .env.example .env
+   ```
 
 3. **Generate encryption key (optional but recommended):**
 
-  ```bash
-    openssl rand -base64 32
-  ```
+   ```bash
+   openssl rand -base64 32
+   ```
 
    Add to `.env`:
 
-```arduino
+   ```env
    PB_ENCRYPTION_KEY=your_generated_key_here
-```
+   ```
 
 4. **Start the application:**
 
-```bash
+   ```bash
    docker compose up -d
-```
+   ```
 
 5. **Access Admin UI:**
    - URL: <http://localhost:8090/_/>
@@ -124,11 +157,8 @@ Production-ready Pocketbase v0.23 backend for Angular 21 Masterclass e-commerce 
    - Password: `Admin123!`
 
 6. **Access API:**
-
    - Base URL: <http://localhost:8090/api/>
    - Auto-generated docs: <http://localhost:8090/_/#/logs>
-
----
 
 ## 🔧 Environment Variables
 
@@ -211,7 +241,7 @@ openssl rand -base64 32
 
 **Rate Limit Rules Format:**
 
-```arduino
+```text
 label|audience|duration|maxRequests
 ```
 
@@ -252,8 +282,6 @@ Means:
 
 Get your keys at: <https://unsplash.com/developers>
 
----
-
 ## 👥 Default Users
 
 Three users are created automatically on first migration:
@@ -282,13 +310,11 @@ Three users are created automatically on first migration:
 - **Profile:** Mario Rossi, +39 333 9876543
 - **Sample Data:** 5 orders, 1 review, saved address and payment method
 
----
-
 ## 📊 Database Schema
 
 ### User Management
 
-```arduino
+```text
 _pb_users_auth_ (1) ──────┬──────→ (1) user_profiles
                           ├──────→ (N) user_addresses
                           ├──────→ (N) user_payment_methods
@@ -300,10 +326,10 @@ _pb_users_auth_ (1) ──────┬──────→ (1) user_profiles
 
 ### Product & Categories
 
-```arduino
+```text
 categories (1) ────→ (N) categories (hierarchical)
            (1) ────→ (N) products
-           
+
 products (1) ──────→ (N) product_reviews
          (1) ──────→ (N) order_items
          (1) ──────→ (N) cart_items
@@ -313,7 +339,7 @@ products (1) ──────→ (N) product_reviews
 
 ### Orders
 
-```arduino
+```text
 orders (1) ────────→ (N) order_items
        (1) ────────→ (N) order_status_history
        (N) ←──────→ (1) user_addresses (shipping & billing)
@@ -322,11 +348,9 @@ orders (1) ────────→ (N) order_items
 
 ### Reviews
 
-```arduino
+```text
 product_reviews (1) ────→ (N) review_helpfulness
 ```
-
----
 
 ## 💻 Development
 
@@ -334,21 +358,21 @@ product_reviews (1) ────→ (N) review_helpfulness
 
 1. **Download Pocketbase:**
 
-```bash
+   ```bash
    # macOS/Linux (ARM64)
    curl -fSL https://github.com/pocketbase/pocketbase/releases/download/v0.23.4/pocketbase_0.23.4_darwin_arm64.zip -o pocketbase.zip
    unzip pocketbase.zip
    chmod +x pocketbase
-   
+
    # macOS/Linux (AMD64)
    curl -fSL https://github.com/pocketbase/pocketbase/releases/download/v0.23.4/pocketbase_0.23.4_linux_amd64.zip -o pocketbase.zip
    unzip pocketbase.zip
    chmod +x pocketbase
-```
+   ```
 
 2. **Run with auto-migrations:**
 
-```bash
+   ```bash
    ./pocketbase serve \
      --http=0.0.0.0:8092 \
      --dir=./pb_data \
@@ -356,11 +380,11 @@ product_reviews (1) ────→ (N) review_helpfulness
      --hooksDir=./pb_hooks \
      --migrationsDir=./pb_migrations \
      --automigrate
-```
+   ```
 
 3. **Run with debug mode:**
 
-```bash
+   ```bash
    ./pocketbase serve --dev \
      --http=0.0.0.0:8092 \
      --dir=./pb_data \
@@ -368,7 +392,7 @@ product_reviews (1) ────→ (N) review_helpfulness
      --hooksDir=./pb_hooks \
      --migrationsDir=./pb_migrations \
      --automigrate
-```
+   ```
 
 ### Reset Database
 
@@ -409,47 +433,45 @@ docker compose restart
 docker compose down -v
 ```
 
----
-
 ## 🚀 Production Deployment
 
 ### Docker Compose Production
 
 1. **Update `.env` for production:**
 
-```env
+   ```env
    PB_APP_URL=https://api.yourdomain.com
    PB_DEBUG=false
    PB_ENV=production
    PB_ENCRYPTION_KEY=<your-32-char-key>
-   
+
    # Enable SMTP
    PB_SMTP_ENABLED=true
    PB_SMTP_HOST=smtp.sendgrid.net
    PB_SMTP_USERNAME=apikey
    PB_SMTP_PASSWORD=<your-sendgrid-key>
-   
+
    # Enable S3
    PB_S3_ENABLED=true
    PB_S3_BUCKET=your-bucket
    PB_S3_REGION=eu-west-1
    PB_S3_ACCESS_KEY=<your-key>
    PB_S3_SECRET=<your-secret>
-   
+
    # Enable backups to S3
    PB_BACKUPS_S3_ENABLED=true
    PB_BACKUPS_S3_BUCKET=your-backups-bucket
-   
+
    # Enable rate limiting
    PB_RATE_LIMITS_ENABLED=true
    PB_RATE_LIMITS_RULES=*:auth||3|2;*:create||5|20;/api/||10|300
-```
+   ```
 
 2. **Deploy:**
 
-```bash
+   ```bash
    docker compose up -d
-```
+   ```
 
 ### Nginx Reverse Proxy
 
@@ -475,7 +497,7 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        
+
         # WebSocket support for realtime
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
@@ -522,21 +544,19 @@ unzip backup.zip -d pb_data
 docker compose up -d
 ```
 
----
-
 ## 📚 API Documentation
 
 ### Auto-Generated Documentation
 
 Access interactive API docs at:
 
-```arduino
+```text
 http://localhost:8090/_/#/logs
 ```
 
 ### Base URL
 
-```arduino
+```text
 http://localhost:8090/api/
 ```
 
@@ -617,8 +637,6 @@ pb.collection('orders').subscribe('ORDER_ID', (e) => {
 })
 ```
 
----
-
 ## 🔄 Migrations
 
 ### Migration List (28 Total)
@@ -648,31 +666,26 @@ pb.collection('orders').subscribe('ORDER_ID', (e) => {
 21. `1733XXXXXX_created_user_profiles.js`
 
 **Seeds (7):**
-22. `1733XXXXXX_seed_essential.js` - Roles, 2FA, payment methods, settings, 3 users + profiles
-23. `1733XXXXXX_seed_categories.js` - ~35 hierarchical tech categories
-24. `1733XXXXXX_seed_products.js` - 1000 products with Unsplash images
-25. `1733XXXXXX_seed_discount_codes.js`
-26. `1733XXXXXX_seed_dom_discount_codes.js`
-27. `1733XXXXXX_seed_dom_payment_methods.js`
-28. `1733XXXXXX_seed_orders_and_reviews.js` - 5 orders with status history + 1 review
+
+1. `1733XXXXXX_seed_essential.js` - Roles, 2FA, payment methods, settings, 3 users + profiles
+2. `1733XXXXXX_seed_categories.js` - ~35 hierarchical tech categories
+3. `1733XXXXXX_seed_products.js` - 1000 products with Unsplash images
+4. `1733XXXXXX_seed_discount_codes.js`
+5. `1733XXXXXX_seed_dom_discount_codes.js`
+6. `1733XXXXXX_seed_dom_payment_methods.js`
+7. `1733XXXXXX_seed_orders_and_reviews.js` - 5 orders with status history + 1 review
 
 ### Migration Order
 
 Migrations are executed in filename order. All collection migrations must complete before seed migrations.
 
----
-
 ## 📝 License
 
 MIT License - see LICENSE file for details.
 
----
-
 ## 🤝 Contributing
 
 This is a reference implementation for the Angular 21 Masterclass. Feel free to fork and customize for your needs.
-
----
 
 ## 📧 Support
 
