@@ -1,62 +1,109 @@
-# Git
+# ===========================================
+# GIT
+# ===========================================
 .git
 .gitignore
 .gitattributes
+.github/
 
-# Python
-__pycache__
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-ENV/
-pip-log.txt
-pip-delete-this-directory.txt
-.pytest_cache/
-.coverage
-htmlcov/
+# ===========================================
+# POCKETBASE DATA (non serve in image)
+# ===========================================
+pb_data/
+!pb_migrations/
 
-# Environment
+# ===========================================
+# ENVIRONMENT & SECRETS
+# ===========================================
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 
-# macOS
+# ===========================================
+# NODE.JS
+# ===========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ===========================================
+# MACOS
+# ===========================================
 .DS_Store
 .AppleDouble
 .LSOverride
 ._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
 
-# IDE
-.vscode
-.idea
+# ===========================================
+# WINDOWS
+# ===========================================
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ===========================================
+# LINUX
+# ===========================================
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===========================================
+# IDE & EDITORS
+# ===========================================
+.vscode/
+.idea/
 *.swp
 *.swo
+*.swn
+*.bak
 
-# Documentation
+# ===========================================
+# DOCUMENTATION (non serve in runtime)
+# ===========================================
 README.md
-docs/
+LICENSE
 *.md
+docs/
 
-# CI/CD
+# ===========================================
+# CI/CD (non serve in image)
+# ===========================================
 .github/
+.gitlab-ci.yml
+.travis.yml
+azure-pipelines.yml
 
-# Docker
-docker-compose.yml
-docker-compose.*.yml
-Dockerfile
+# ===========================================
+# DOCKER FILES (non serve in image)
+# ===========================================
+Dockerfile*
+docker-compose*.yml
 .dockerignore
 
-# Logs
+# ===========================================
+# TEMPORARY & LOGS
+# ===========================================
 *.log
-
-# Temporary
-tmp/
-temp/
 *.tmp
-
-# Scripts (non necessari in container)
-scripts/seed.py
-scripts/download-images.sh
+*.temp
+*.backup
+*.old

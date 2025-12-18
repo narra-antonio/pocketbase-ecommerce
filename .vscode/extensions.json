@@ -1,9 +1,33 @@
 {
-    "recommendations": [
-        "johnpapa.vscode-peacock",
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "editorconfig.editorconfig",
-        "ms-azuretools.vscode-docker"
-    ]
+  "recommendations": [
+    // Project Color Identifier
+    "johnpapa.vscode-peacock",
+
+    // JavaScript & TypeScript
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-typescript-next",
+
+    // Node.js
+    "christian-kohler.npm-intellisense",
+    "eg2.vscode-npm-script",
+
+    // Docker
+    "ms-azuretools.vscode-docker",
+
+    // EditorConfig
+    "editorconfig.editorconfig",
+
+    // REST Client (per testare API Pocketbase)
+    "humao.rest-client",
+
+    // Angular (per corso)
+    "angular.ng-template",
+
+    // Git
+    "eamodio.gitlens",
+
+    // Markdown (per README/docs)
+    "yzhang.markdown-all-in-one"
+  ]
 }

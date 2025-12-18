@@ -1,42 +1,34 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-pip-log.txt
-pip-delete-this-directory.txt
-.pytest_cache/
-.coverage
-htmlcov/
+# ===========================================
+# POCKETBASE
+# ===========================================
+pb_data/
+!pb_migrations/
+pb_hooks/
 
-# Environment variables
+# ===========================================
+# ENVIRONMENT & SECRETS
+# ===========================================
 .env
 .env.local
+.env.*.local
 
-# macOS
+# ===========================================
+# NODE.JS (per seed scripts futuri)
+# ===========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ===========================================
+# MACOS
+# ===========================================
 .DS_Store
 .AppleDouble
 .LSOverride
-Icon
 ._*
 .DocumentRevisions-V100
 .fseventsd
@@ -51,29 +43,61 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# Docker
-*.log
-docker-compose.override.yml
+# ===========================================
+# WINDOWS
+# ===========================================
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
 
-# Pocketbase
-pb_data/data.db
-pb_data/data.db-shm
-pb_data/data.db-wal
-pb_data/logs.db
-pb_data/logs.db-shm
-pb_data/logs.db-wal
-pb_data/backups/
+# ===========================================
+# LINUX
+# ===========================================
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
 
-# IDE
+# ===========================================
+# IDE & EDITORS
+# ===========================================
 .vscode/*
 !.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
 !.vscode/extensions.json
+!.vscode/*.code-snippets
 .idea/
 *.swp
 *.swo
-*~
-
-# Temporary files
+*.swn
+*.bak
 *.tmp
-tmp/
-temp/
+*.temp
+
+# ===========================================
+# DOCKER
+# ===========================================
+*.log
+docker-compose.override.yml
+
+# ===========================================
+# BACKUP & TEMPORARY
+# ===========================================
+*.bak
+*.backup
+*.old
+*.orig
+*~
+pocketbase*
